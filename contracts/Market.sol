@@ -25,7 +25,7 @@ contract Market is ERC721Holder, Ownable {
     ERC721 private minterContract; // ERC721 token contract
 
     mapping(uint256 => uint256) public lastPriceOfID; // Last sale price of every token
-    mapping(uint256 => Sale) private idOnSale; // Token ID to Sale structure
+    mapping(uint256 => Sale) public idToSale; // Token ID to Sale structure
 
     event Listing(uint256 ticketID, address seller);
     event Purchase(uint256 ticketID, address buyer, address _seller);
@@ -49,7 +49,12 @@ contract Market is ERC721Holder, Ownable {
         minterContract = ERC721(_minterContract);
     }
 
-    function setCommisionPercentage(uint256 _newOrganizerCommission) external {
+    /**
+     * Owner can change the commission percentage with this function
+     * but the percentage should not be greater than 30%
+     * @param _newOrganizerCommission New organizer commission percentage
+     */
+    function setCommissionPercentage(uint256 _newOrganizerCommission) external onlyOwner {
         require(
             _newOrganizerCommission <= 300,
             "Commission cannot be more than 30%"
@@ -66,7 +71,7 @@ contract Market is ERC721Holder, Ownable {
     function listTicket(uint256 _ticketID, uint256 _price) external {
         address _seller = msg.sender;
         require(
-            idOnSale[_ticketID].seller == address(0),
+            idToSale[_ticketID].seller == address(0),
             "Ticket already on sale!"
         );
         require(
@@ -83,7 +88,7 @@ contract Market is ERC721Holder, Ownable {
             "Price cannot be more than 110% of the last sale price!"
         );
 
-        idOnSale[_ticketID] = Sale(_seller, _price);
+        idToSale[_ticketID] = Sale(_seller, _price);
 
         minterContract.safeTransferFrom(_seller, address(this), _ticketID);
 
@@ -97,7 +102,7 @@ contract Market is ERC721Holder, Ownable {
      */
     function purchaseTicket(uint256 _ticketID) external {
         address _buyer = msg.sender;
-        Sale memory _sale = idOnSale[_ticketID];
+        Sale memory _sale = idToSale[_ticketID];
         
         require(
             _sale.seller != address(0),
@@ -113,7 +118,7 @@ contract Market is ERC721Holder, Ownable {
         
         lastPriceOfID[_ticketID] = _sale.price;
 
-        delete idOnSale[_ticketID];
+        delete idToSale[_ticketID];
 
         festToken.transferFrom(_buyer, owner(), _organizerCommission);
         festToken.transferFrom(_buyer, _sale.seller, _sellerAmount);

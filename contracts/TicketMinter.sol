@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract TicketMinter is ERC721, Ownable {
 
     uint256 public constant MAX_TICKETS = 1000;
-    uint256 private ticketID;
+    uint256 public ticketID;
     uint256 private ticketPrice;
 
     ERC20 private currencyToken;
@@ -16,7 +16,7 @@ contract TicketMinter is ERC721, Ownable {
     constructor(
         address _currencyToken,
         uint256 _ticketPrice
-    ) ERC721("Ticket NFT", "TICKET") {
+    ) ERC721("Fest Ticket", "TICKET") {
         currencyToken = ERC20(_currencyToken);
         ticketPrice = _ticketPrice;
     }
