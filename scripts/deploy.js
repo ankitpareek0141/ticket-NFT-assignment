@@ -7,23 +7,32 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  
+  // Deploy FestToken contract (replace with actual implementation)
+  const festToken = await hre.ethers.deployContract("FESTToken");
+  console.log("FestToken deployed to:", await festToken.getAddress());
+  
+  // Deploy TicketMinter contract
+  const ticketMinter = await hre.ethers.deployContract("TicketMinter", [
+    await festToken.getAddress(), 
+    hre.ethers.parseUnits("1", "ether")
+  ]);
+  console.log("TicketMinter deployed to:", await ticketMinter.getAddress());
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
+  // Deploy Market contract
+  const market = await hre.ethers.deployContract("Market", [
+    30, 
+    await festToken.getAddress(), 
+    await ticketMinter.getAddress()
+  ]);
+  console.log("Market deployed to:", await market.getAddress());
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  // Mint initial tokens or perform other setup if needed
+  // ...
 
-  await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  console.log("Deployment completed.");
 }
+
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
