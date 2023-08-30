@@ -22,7 +22,7 @@ contract TicketMinter is ERC721, Ownable {
     }
 
     function buyTicket() external {
-        require(ticketID < MAX_TICKETS, "All tickets sold");
+        require(ticketID <= MAX_TICKETS, "All tickets sold");
         require(currencyToken.transferFrom(msg.sender, owner(), ticketPrice), "Transfer failed");
         ticketID++;
         _mint(msg.sender, ticketID);
