@@ -14,7 +14,7 @@ someone make a trade for the ticket the organizer gets some amount in
 the form of commission.
 <br />
 <br />
-## Smart Contracts Flow
+# Smart Contracts Flow
 There are basically 3 smart contracts which will handle the buy and selling
 of tickets between the organizer and the users so, below are the details of 
 each smart contracts.
@@ -149,9 +149,7 @@ npx hardhat run scripts/deploy.js --network ganache
 ```
 <br />
 <br />
-
 # Sample Hardhat Project
-
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
 
 Try running some of the following tasks:
