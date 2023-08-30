@@ -12,8 +12,9 @@ there instead from the organizer.
 The organizer can also set the commission for monitizing so that when 
 someone make a trade for the ticket the organizer gets some amount in 
 the form of commission.
-
-## Smart contracts flow
+<br />
+<br />
+## Smart Contracts Flow
 There are basically 3 smart contracts which will handle the buy and selling
 of tickets between the organizer and the users so, below are the details of 
 each smart contracts.
@@ -91,8 +92,8 @@ for sale with a specified price, provided it does not exceed the allowed price i
 **- purchaseTicket(uint256 _ticketID) external:** Buyers can purchase tickets from the 
 marketplace by paying the selling price. The contract ensures that the correct amounts 
 are transferred to the seller, contract owner (for commission), and buyer.
-
-
+<br />
+<br />
 ## How to run ?
 Now below are the steps of how you can run & test smart contrats on your local machine.
 Open you terminal and follow the steps below,
@@ -146,6 +147,8 @@ npx hardhat run scripts/deploy.js --network sepolia
 # For ganache
 npx hardhat run scripts/deploy.js --network ganache
 ```
+<br />
+<br />
 
 # Sample Hardhat Project
 
