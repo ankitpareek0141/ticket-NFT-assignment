@@ -27,9 +27,6 @@ async function main() {
   ]);
   console.log("Market deployed to:", await market.getAddress());
 
-  // Mint initial tokens or perform other setup if needed
-  // ...
-
   console.log("Deployment completed.");
 }
 

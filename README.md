@@ -130,6 +130,23 @@ npx hardhat run scripts/deploy.js
 ```
 Then you'll see the addresses on the console once all the contracts are deployed.
 
+4. If you want to depoy on sepolia test network then replace the 
+`INFURA_API_KEY` and 'ACCOUNT_PRIVATE_KEY' with the your own infura and 
+account private key in '.env' file.
+```
+INFURA_API_KEY=6dee1e4f94bc4793983746a50a72b5df
+ACCOUNT_PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+```
+
+5. Then enter this command to deploy the smart contract in the test network
+```shell
+# For Sepolia 
+npx hardhat run scripts/deploy.js --network sepolia
+    or
+# For ganache
+npx hardhat run scripts/deploy.js --network ganache
+```
+
 # Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
